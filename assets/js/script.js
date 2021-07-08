@@ -17,6 +17,15 @@ var mainEl = document.getElementById('main');
 var startBtn = document.getElementById('start');
 var startScreenEl = document.querySelector(".startScreen");
 var questionsEl = document.querySelector(".questions");
+var newScoreEl = document.querySelector(".score")
+var submitScoreEl = document.querySelector('.scoreSubmit');
+var initialScoreEl = document.querySelector(".scoreName");
+var highScoresEl = document.querySelector(".highscores")
+var scoresListEl = document.querySelector(".scoresList");
+var timeInterval;
+var allHighscores = [];
+
+newScoreEl.textContent = score
 
 function countdown() {
    
@@ -27,7 +36,7 @@ function countdown() {
 
     questionsEl.removeAttribute("style");
 
-    var timeInterval = setInterval(function() {
+    timeInterval = setInterval(function() {
         // As long as the `timeLeft` is greater than 1
         if (timeLeft > 1) {
           // Set the `textContent` of `timerEl` to show the remaining seconds
@@ -48,7 +57,7 @@ function countdown() {
     
     
 
-    displayQuestion ();
+    displayQuestion();
 }
 
 startBtn.onclick = countdown;
@@ -61,18 +70,63 @@ function displayQuestion () {
 
     questionTitleEl.textContent = questions[questionIndex].q;
 
+    questionChoicesEl.innerHTML = "";
+
     for (var i = 0; i < 4; i++) {
         var buttonEl = document.createElement("button");
         buttonEl.textContent = questions[questionIndex].c[i];
-        // loop for ans here 
+        buttonEl.addEventListener("click", function(event) {
+          checkAnswer(event.target.textContent)
+        }) 
         questionChoicesEl.appendChild(buttonEl);
-
-
 }
 }
 
-// add fucnrion for check ans , if goes in here 
+function checkAnswer (userAnswer) {
+  if (userAnswer === questions[questionIndex].a) {
+    score ++
+    newScoreEl.textContent = score
+  }
 
-//questionindex + 1 
+  questionIndex ++
+  
+  if (questionIndex === questions.length) {
+    console.log("hello")
+    endQuiz()
+  }
+  else (
+    displayQuestion()
+  )
+}
 
-//then call displayQuestion function 
+function endQuiz() {
+
+  questionsEl.setAttribute("style", "display:none");
+
+  highScoresEl.removeAttribute("style");
+  
+  timerEl.textContent = '';
+          // Use `clearInterval()` to stop the timer
+      clearInterval(timeInterval)
+}
+
+submitScoreEl.addEventListener("click", function() {
+
+  submitHighscore()
+})
+
+function submitHighscore () {
+
+//   //cre var abder to obj with key valu pair initial andd scrore
+
+//   initial = value from user
+//   score = score
+
+//   push to emoty Array
+
+//   set arrat to local storage
+  
+// }
+
+
+// loop thru empty array and append to OL to display scores 
