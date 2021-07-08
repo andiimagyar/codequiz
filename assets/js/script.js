@@ -115,7 +115,7 @@ submitScoreEl.addEventListener("click", function() {
   submitHighscore()
 })
 
-function submitHighscore () {
+function submitHighscore () { }
 
 //   //cre var abder to obj with key valu pair initial andd scrore
 
